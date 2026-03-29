@@ -1,11 +1,13 @@
 import { CreateTable } from '../../../src/domain/use-cases/create-table.use-case';
 
 describe('CreateTableUseCase', () => {
-  const createTable = new CreateTable();
+  let createTable: CreateTable;
+
+  beforeEach(() => {
+    createTable = new CreateTable();
+  });
 
   it('should create table with default values', () => {
-    // const createTable = new CreateTable();
-
     const table = createTable.execute({ base: 2 });
     const rows = table.split('\n').length;
 
