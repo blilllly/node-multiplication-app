@@ -1,5 +1,5 @@
+import fs from 'fs';
 import { SaveFile } from '../../../src/domain/use-cases/save-file.use-case';
-import * as fs from 'fs';
 
 describe('SaveFileUseCase', () => {
   let saveFile: SaveFile;
@@ -11,7 +11,6 @@ describe('SaveFileUseCase', () => {
   afterEach(() => {
     const outputFolderExist = fs.existsSync('outputs');
     if (outputFolderExist) fs.rmSync('outputs', { recursive: true });
-
     const customOutputFolderExist = fs.existsSync(
       customOptions.fileDestination,
     );
@@ -53,7 +52,7 @@ describe('SaveFileUseCase', () => {
   });
 
   it('should return false if directory could not be created', () => {
-    const mkdirSpy = jest.spyOn(fs, 'mkdirSync').mockImplementation(() => {
+    const mkdirSpy = jest.spyOn(fs, 'mkdirSync').mockImplementationOnce(() => {
       throw new Error('This is a custom error message from testing');
     });
 
@@ -67,7 +66,7 @@ describe('SaveFileUseCase', () => {
   it('should return false if file could not be created', () => {
     const writeFileSpy = jest
       .spyOn(fs, 'writeFileSync')
-      .mockImplementation(() => {
+      .mockImplementationOnce(() => {
         throw new Error('This is a custom writing error message');
       });
 
